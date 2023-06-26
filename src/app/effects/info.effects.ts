@@ -16,7 +16,7 @@ export class InfoEffects {
                 InfoActions.status({status: InfoActions.Status.SUCCESS})
             )),
                     
-            catchError(() => EMPTY)
+            catchError(() => of(InfoActions.status({status: InfoActions.Status.FAILED})))
         )),
     )
     );

@@ -1,8 +1,13 @@
 <div class="container">
     <header>اوقات شرعی</header>
     <div class="loading" *ngIf=" (status$ | async)?.status === 0">
-        <span>
+        <span >
             لطفا کمی صبر کنید...
+        </span>
+    </div>
+    <div class="loading" *ngIf=" (status$ | async)?.status === 2">
+        <span>
+            سیستم با خطا مواجه شد... 
         </span>
     </div>
     
