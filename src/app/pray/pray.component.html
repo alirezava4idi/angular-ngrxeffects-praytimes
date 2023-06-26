@@ -1,10 +1,12 @@
 <div class="container">
     <header>اوقات شرعی</header>
     <div class="loading" *ngIf=" (status$ | async)?.status === 0">
-        Loading
+        <span>
+            لطفا کمی صبر کنید...
+        </span>
     </div>
     
-    <div class="times">
+    <div class="times" >
         <section>
             <div class="subject">نام شهر</div>
             <div class="value">{{ (data$ | async)?.CityName }}</div>
