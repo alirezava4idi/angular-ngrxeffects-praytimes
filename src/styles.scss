@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    direction: rtl;
+    font-family: Vazirmatn, Vazirmatn-FD, Vazirmatn-UI-FD, sans-serif;;
+}
+
+body{
+    display: flex;
+    height: 100lvh, 100vh, 100svh;
+    justify-content: center;
+    align-items: center;
+    height: 100svh;
+    background-color: rgba(0, 0, 0, 0.865);
+    font-size: 1.2rem;
+}

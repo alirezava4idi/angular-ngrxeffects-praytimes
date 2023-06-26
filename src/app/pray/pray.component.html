@@ -1,0 +1,41 @@
+<div class="container">
+    <header>اوقات شرعی</header>
+    <div class="loading" *ngIf=" (status$ | async)?.status === 0">
+        Loading
+    </div>
+    
+    <div class="times">
+        <section>
+            <div class="subject">نام شهر</div>
+            <div class="value">{{ (data$ | async)?.CityName }}</div>
+        </section>
+        <section>
+            <div class="subject">تاریخ امروز</div>
+            <div class="value">{{ (data$ | async)?.Today }}</div>
+        </section>
+        <section>
+            <div class="subject"> اذان صبح</div>
+            <div class="value">{{ (data$ | async)?.Imsaak }}</div>
+        </section>
+        <section>
+            <div class="subject"> طلوع آفتاب</div>
+            <div class="value">{{(data$ | async)?.Sunrise}}</div>
+        </section>
+        <section>
+            <div class="subject"> اذان ظهر</div>
+            <div class="value">{{(data$ | async)?.Noon}}</div>
+        </section>
+        <section>
+            <div class="subject"> غروب خورشید</div>
+            <div class="value">{{(data$ | async)?.Sunset}}</div>
+        </section>
+        <section>
+            <div class="subject"> اذان مغرب</div>
+            <div class="value">{{(data$ | async)?.Maghreb}}</div>
+        </section>
+        <section>
+            <div class="subject"> نیمه شب شرعی</div>
+            <div class="value">{{(data$ | async)?.Midnight}}</div>
+        </section>
+    </div>
+</div>
