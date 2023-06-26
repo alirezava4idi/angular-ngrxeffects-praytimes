@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { infoLoadStatusReducer, infoReducer } from '../app/reducers/info.reducers';
 import { HttpClientModule } from '@angular/common/http';
 import { InfoEffects } from './effects/info.effects';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,12 @@ import { InfoEffects } from './effects/info.effects';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([InfoEffects]),
     HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
