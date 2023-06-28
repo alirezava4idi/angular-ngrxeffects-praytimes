@@ -24,7 +24,7 @@ const initialStatus: InfoLoadStatus = {
 }
 
 
-function getInfo(state: Info, payload: any) {
+function getInfo(_state: Info, payload: any) {
     const today = payload.info.Today.split('-')[0];
     return {...payload.info, Today: today}
 }
@@ -32,7 +32,6 @@ function getInfo(state: Info, payload: any) {
 
 function changeStatus(state: InfoLoadStatus, payload: InfoLoadStatus)
 {
-    console.log(payload)
     return {...state, status: payload.status};
 }
 
