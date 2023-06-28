@@ -10,7 +10,7 @@ export class InfoEffects {
 
     loadInfo$ = createEffect(() => this.actions$.pipe(
         ofType(InfoActions.enter),
-        exhaustMap(() => this.infoService.getInfo().pipe(
+        exhaustMap(() => this.infoService.getInfo(746).pipe(
             switchMap(info => of(
                 (InfoActions.loadSuccess({info})),
                 InfoActions.status({status: InfoActions.Status.SUCCESS})

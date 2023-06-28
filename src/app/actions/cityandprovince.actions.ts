@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 import {} from '../models/city.models';
-import {} from '../models/province.models';
+import { Province } from '../models/province.models';
 
 
 
 export const choseProvince = createAction(
     '[PRAY] Chose a Province',
-    props<{code: number}>()
+    props<{province: Province}>()
 )
 
 export const getAllProvinces = createAction(
@@ -14,7 +14,22 @@ export const getAllProvinces = createAction(
 )
 
 export const getAllCities = createAction(
-    '[PRAY] get all cities',
+    '[PRAY] get all Cities',
+)
+
+export const getProvincesSuccess = createAction(
+    '[PRAY] Loading of Provinces Successfull',
+    props<{data: any}>()
+)
+
+export const getCititesSuccess = createAction(
+    '[PRAY] Loading of Cities Successfull',
+    props<{cities: any}>()
+)
+
+export const getAllProvinceCities = createAction(
+    '[PRAY] Get All Province Cities',
+    props<{provinceCode: number}>()
 )
 
 

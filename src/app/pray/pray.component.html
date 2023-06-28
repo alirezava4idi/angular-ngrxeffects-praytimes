@@ -1,5 +1,24 @@
 <div class="container">
     <header>اوقات شرعی</header>
+    <form class="getCity" >
+        <div class="pdropdown">
+            <input class="province" type="text" placeholder="استان" value="{{ (province$ | async)?.Name }}" (click)="openPdrawer()" (blur)="closePdrawer($event)">
+            <div class="dropdown" *ngIf="pDrawerState">
+                <ul *ngFor="let p of (provinces$ | async)" >
+                    <li (click)="setPname(p.Name, p.Code)" >{{p.Name}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="cdropdown">
+            <input class="city" type="text" placeholder="شهر" (click)="openCdrawer()" (blur)="closeCdrawer()">
+            <div class="dropdown" *ngIf="cDrawerState">
+                <ul *ngFor="let c of (cities$ | async)" >
+                    <li >{{c.Name}}</li>
+                </ul>
+            </div>
+        </div>
+        <button type="submit">برو</button>
+    </form>
     <div class="loading" *ngIf=" (status$ | async)?.status === 0">
         <span >
             لطفا کمی صبر کنید...

@@ -1,17 +1,37 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { LocalService } from "./local.services";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CandPService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private localstorage: LocalService) {}
 
 
     getAllProvinces() {
-        return this.http.get('https://prayer.aviny.com/api/province')
+        const data$: Observable<any> = new Observable((s) => {
+            s.next(this.localstorage.getData('province'))
+        })
+
+        if(this.localstorage.getData('province') !== null){
+            return data$
+        } else {
+            return this.http.get('https://prayer.aviny.com/api/province')
+        }
     }
+
     getAllCities() {
-        return this.http.get('https://prayer.aviny.com/api/city')
+        const data$: Observable<any> = new Observable((s) => {
+            s.next(this.localstorage.getData('cities'))
+        })
+
+        if (this.localstorage.getData('cities') !== null)
+        {
+            return data$
+        }else {
+            return this.http.get('https://prayer.aviny.com/api/city')
+        }
     }
 }
