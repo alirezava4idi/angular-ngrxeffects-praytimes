@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import {} from '../models/city.models';
+import { City } from '../models/city.models';
 import { Province } from '../models/province.models';
+import { Observable } from 'rxjs';
 
 
 
@@ -29,7 +30,7 @@ export const getCititesSuccess = createAction(
 
 export const getAllProvinceCities = createAction(
     '[PRAY] Get All Province Cities',
-    props<{provinceCode: number}>()
+    props<{allCities: City[], provinceCode: number}>()
 )
 
 
