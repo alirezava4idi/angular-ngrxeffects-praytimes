@@ -56,6 +56,8 @@ const initialCities: City[] = [];
 function getCity(state: City, code: number | undefined) {
     if(code === undefined) {
         const localProvince = localStorage.getData('province');
+        const localCities = localStorage.getData('allCities');
+        console.log(localProvince)
         if (localProvince !== null && localCities !== null) {
             
             const province = JSON.parse(localProvince);
