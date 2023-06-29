@@ -12,10 +12,10 @@ export class CandPService {
 
     getAllProvinces() {
         const data$: Observable<any> = new Observable((s) => {
-            s.next(this.localstorage.getData('province'))
+            s.next(this.localstorage.getData('provinces'))
         })
 
-        if(this.localstorage.getData('province') !== null){
+        if(this.localstorage.getData('provinces') !== null){
             return data$
         } else {
             return this.http.get('https://prayer.aviny.com/api/province')

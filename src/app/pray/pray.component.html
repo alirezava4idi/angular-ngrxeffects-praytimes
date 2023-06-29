@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="cdropdown">
-            <input class="city" type="text" placeholder="شهر" (click)="openCdrawer()" (blur)="closeCdrawer()">
+            <input class="city" type="text" placeholder="شهر" value="{{ (city$ | async)?.Name }}"  (click)="openCdrawer()" (blur)="closeCdrawer()">
             <div class="dropdown" *ngIf="cDrawerState">
                 <ul *ngFor="let c of (provinceCities$ | async)" >
                     <li >{{c.Name}}</li>

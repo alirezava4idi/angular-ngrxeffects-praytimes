@@ -7,40 +7,90 @@ import { LocalService } from '../services/local.services';
 
 
 const localStorage = new LocalService();
+const localProvince = localStorage.getData('province');
+const localProvinces = localStorage.getData('provinces');
+const localCities = localStorage.getData('allCities');
 
-const initialCityState: City = {
-    Code: 1,
+let initialCityState: City = {
+    Code: 0,
     Name: 'تهران',
     Province_Code: 0,
     Country_Code: 1
 };
-const initialProvinceState: Province = {
+
+let initialProvinceState: Province = {
     Code: 0,
     Name: 'تهران',
     Country_Code: 1
 };
+
+if (localProvince !== null && localCities !== null)
+{
+    const province = JSON.parse(localProvince);
+    const cities = JSON.parse(localCities);
+    const provinceCities = cities.filter((p: City) => p.Province_Code === province.Code)
+ 
+
+    initialCityState = {
+        Code: provinceCities[0].Code,
+        Name: provinceCities[0].Name,
+        Province_Code: provinceCities[0].Province_Code,
+        Country_Code: provinceCities[0].Country_Code
+    }
+
+
+
+    initialProvinceState = {
+        Code: province.Code,
+        Name: province.Name,
+        Country_Code: province.Country_Code
+    }
+}
+
+
+
+
 const initaialCitiesOfProvince: City[] = [];
 const initialCities: City[] = [];
 
-function getCity(state: City, code: number) {
-    return state
+function getCity(state: City, code: number | undefined) {
+    if(code === undefined) {
+        const localProvince = localStorage.getData('province');
+        if (localProvince !== null && localCities !== null) {
+            
+            const province = JSON.parse(localProvince);
+            const cities = JSON.parse(localCities);
+            const provinceCities = cities.filter((p: City) => p.Province_Code === province.Code)
+
+            console.log(province)
+
+            return {
+                Code: provinceCities[0].Code,
+                Name: provinceCities[0].Name,
+                Province_Code: provinceCities[0].Province_Code,
+                Country_Code: provinceCities[0].Country_Code
+            }
+        } else {
+            return state
+        }
+    } else {
+        // here is if chose another city
+        return state
+    }
 }
 
-// function setAllProvencesCities(state: City[], provinceCode: number) {
-
-//     return state
-// }
 
 function setProvince(state: Province, province: Province) {
-    return {...province}
+    localStorage.saveData('province', JSON.stringify(province))
+    return province
 }
 
 
 function showProvinces(state: Province[], payload: any)
 {
-    const data = localStorage.getData('province');
+    const data = localStorage.getData('provinces');
     if( data === null ){
-        localStorage.saveData('province', JSON.stringify(payload.data));
+        localStorage.saveData('provinces', JSON.stringify(payload.data));
         return payload.data
     } else {
         return JSON.parse(data)
@@ -52,10 +102,10 @@ function showProvinces(state: Province[], payload: any)
 
 function setAllCities(state: City[], payload: City[])
 {
-    const data = localStorage.getData('cities');
+    const data = localStorage.getData('allCities');
     if (data === null)
     {
-        localStorage.saveData('cities', JSON.stringify(payload))
+        localStorage.saveData('allCities', JSON.stringify(payload))
         return payload
     }else {
         return JSON.parse(data)
@@ -65,7 +115,7 @@ function setAllCities(state: City[], payload: City[])
 
 function provinceCities(state: City[], allCities: City[], provinceCode: number ) {
     const cities = allCities.filter(city => (city.Country_Code === 1 && city.Province_Code === provinceCode))
-    console.log('provinceCities', cities);
+    localStorage.saveData('provinceCities', JSON.stringify(cities))
     return cities
 }
 
@@ -84,10 +134,7 @@ export const setAllCitiesReducer = createReducer(
     on(CandPActions.getCititesSuccess, (state, {cities}) => setAllCities(state, cities))
 )
 
-// export const citiesReducer = createReducer (
-//     initaialCitiesOfProvince,
-//     on(CandPActions.getAllProvinceCities, (state, {provinceCode}) => (setAllProvencesCities(state, provinceCode))),
-// )
+
 
 
 const initailProvinces: Province[] = [];

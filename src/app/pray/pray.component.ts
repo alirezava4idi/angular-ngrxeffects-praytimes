@@ -28,6 +28,7 @@ export class PrayComponent implements OnInit {
   province$: Observable<Province>;
   cities$: Observable<City[]>;
   provinceCities$: Observable<City[]>;
+  city$: Observable<City>;
 
   form = new FormGroup({
     pname: new FormControl<string>(''),
@@ -37,12 +38,19 @@ export class PrayComponent implements OnInit {
   pDrawerState = false;
   cDrawerState = false;
 
+  localProvince = this.localStorage.getData('province');
 
-  constructor(private store: Store<{info: Info, status: InfoLoadStatus, provinces: Province[], province: Province, cities: City[], provinceCities: City[]}>, private localStorage: LocalService) {
+
+  constructor(private store: Store<{info: Info, status: InfoLoadStatus, provinces: Province[], province: Province, cities: City[], provinceCities: City[], city: City}>, private localStorage: LocalService) {
     this.data$ = this.store.select(state => state.info);
     this.status$ = this.store.select(state => state.status);
     this.store.dispatch(InfoActions.status({status: InfoActions.Status.PENDING}))
-    
+    if(this.localProvince !== null) {
+      const parsed = JSON.parse(this.localProvince);
+      this.store.dispatch(candpAnctions.choseProvince({province: {Code: parsed.Code, Name: parsed.Name, Country_Code: parsed.Country_Code}}))
+    }else {
+      this.store.dispatch(candpAnctions.choseProvince({province: {Code: 0, Name: 'تهران', Country_Code: 1}}))
+    }
 
     this.provinces$ = this.store.select(state => state.provinces);
 
@@ -54,19 +62,21 @@ export class PrayComponent implements OnInit {
     this.province$ = this.store.select(state => state.province);
 
     this.provinceCities$ = this.store.select(state => state.provinceCities);
-
-  }
+    this.city$ = this.store.select(state => state.city);
+  } 
 
   
   setPname(pname: string, code: number) {
     
     this.form.setValue({pname: pname, cname: ''})
     this.store.dispatch(candpAnctions.choseProvince({province: { Code: code, Name: pname, Country_Code: 1}}))
-    
+
 
     this.cities$.subscribe(v => {
       this.store.dispatch(candpAnctions.getAllProvinceCities({allCities: v, provinceCode: code}))
     })
+
+    this.store.dispatch(candpAnctions.choseCity({code: undefined}))
   }
 
 
@@ -90,7 +100,14 @@ export class PrayComponent implements OnInit {
     this.store.dispatch(InfoActions.enter());
     this.store.dispatch(candpAnctions.getAllProvinces());
     this.store.dispatch(candpAnctions.getAllCities());
-    
+    const p = this.localStorage.getData('province');
+    if(p !== null) {
+      const province: Province = JSON.parse(p);
+      this.cities$.subscribe(v => {
+        this.store.dispatch(candpAnctions.getAllProvinceCities({allCities: v, provinceCode: province.Code}))
+      })
+    }
+    this.store.dispatch(candpAnctions.choseCity({code: undefined}))
 
     
   }

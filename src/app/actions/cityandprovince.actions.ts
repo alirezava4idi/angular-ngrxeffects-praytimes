@@ -36,5 +36,5 @@ export const getAllProvinceCities = createAction(
 
 export const choseCity = createAction(
     '[PRAY] Chose a City',
-    props<{code: number}>()
+    props<{code: number | undefined}>()
 )
