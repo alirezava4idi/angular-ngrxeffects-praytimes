@@ -33,6 +33,65 @@
         font-size: 1.5rem;
         color: #fff;
     }
+
+    .getCity {
+        display: flex;
+        margin: 8px 2px;
+        * {
+            flex: 1;
+        }
+
+        .pdropdown {
+
+            input {
+                padding: 4px;
+                outline: none;
+                width: 100%;
+                padding: 5px 10px;
+                font-size: 1.2rem;
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            
+        }
+
+        .cdropdown {
+            input {
+                padding: 4px;
+                outline: none;
+                width: 100%;
+                padding: 5px 10px;
+                font-size: 1.2rem;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+            
+        }
+    }
+}
+.dropdown {
+    height: 200px;
+    width: 50%;
+    overflow-y: auto;
+    position: absolute;
+    background-color: #fff;
+    color: black;
+    margin-right: 1px;
+    text-overflow: clip;
+
+    li {
+        cursor: pointer;
+        padding: 2px 8px;
+        border-bottom: 1px solid black;
+        &:hover {
+            
+            background-color: #888;
+        }
+    }
 }
 
 
@@ -42,3 +101,26 @@
         height: 100svh;
     }
 }
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

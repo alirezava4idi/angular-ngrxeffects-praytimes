@@ -8,9 +8,11 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { infoLoadStatusReducer, infoReducer } from '../app/reducers/info.reducers';
+import { provinceReducer, provincesReducer, setAllCitiesReducer, allProvinceCities, cityReducer } from '../app/reducers/cityandprovince.reducers';
 import { HttpClientModule } from '@angular/common/http';
 import { InfoEffects } from './effects/info.effects';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { CandPEffects } from './effects/candp.effects';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ info: infoReducer, status: infoLoadStatusReducer }, {}),
+    StoreModule.forRoot({ info: infoReducer, status: infoLoadStatusReducer, provinces:  provincesReducer, province: provinceReducer, cities: setAllCitiesReducer, provinceCities: allProvinceCities, city: cityReducer }, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([InfoEffects]),
+    EffectsModule.forRoot([InfoEffects, CandPEffects]),
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
