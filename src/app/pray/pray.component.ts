@@ -35,7 +35,7 @@ export class PrayComponent implements OnInit {
     cname: new FormControl()
   })
 
-  pDrawerState = true;
+  pDrawerState = false;
   cDrawerState = false;
 
   localProvince = this.localStorage.getData('province');
