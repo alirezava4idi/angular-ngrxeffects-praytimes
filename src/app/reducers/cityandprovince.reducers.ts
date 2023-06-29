@@ -53,18 +53,27 @@ if (localProvince !== null && localCities !== null)
 const initaialCitiesOfProvince: City[] = [];
 const initialCities: City[] = [];
 
-function getCity(state: City, code: number | undefined) {
-    if(code === undefined) {
+function getCity(state: City, city: City | undefined) {
+
+    const localCity = localStorage.getData('city');
+
+    
+
+    if(city === undefined) {
         const localProvince = localStorage.getData('province');
         const localCities = localStorage.getData('allCities');
-        console.log(localProvince)
         if (localProvince !== null && localCities !== null) {
-            
             const province = JSON.parse(localProvince);
             const cities = JSON.parse(localCities);
+
+            if (localCity !== null && province.Code === JSON.parse(localCity).Province_Code) {
+                return JSON.parse(localCity)
+            }
             const provinceCities = cities.filter((p: City) => p.Province_Code === province.Code)
 
             console.log(province)
+
+            localStorage.saveData('city', JSON.stringify(provinceCities[0]))
 
             return {
                 Code: provinceCities[0].Code,
@@ -77,7 +86,9 @@ function getCity(state: City, code: number | undefined) {
         }
     } else {
         // here is if chose another city
-        return state
+        
+        localStorage.saveData('city', JSON.stringify(city))
+        return city
     }
 }
 
@@ -123,7 +134,7 @@ function provinceCities(state: City[], allCities: City[], provinceCode: number )
 
 export const cityReducer = createReducer (
     initialCityState,
-    on(CandPActions.choseCity, (state, {code}) => (getCity(state, code)))
+    on(CandPActions.choseCity, (state, {city}) => (getCity(state, city)))
 )
 
 export const allProvinceCities = createReducer(

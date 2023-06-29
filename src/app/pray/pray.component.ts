@@ -35,7 +35,7 @@ export class PrayComponent implements OnInit {
     cname: new FormControl()
   })
 
-  pDrawerState = false;
+  pDrawerState = true;
   cDrawerState = false;
 
   localProvince = this.localStorage.getData('province');
@@ -76,7 +76,14 @@ export class PrayComponent implements OnInit {
       this.store.dispatch(candpAnctions.getAllProvinceCities({allCities: v, provinceCode: code}))
     })
 
-    this.store.dispatch(candpAnctions.choseCity({code: undefined}))
+    this.store.dispatch(candpAnctions.choseCity({city: undefined}))
+    this.store.dispatch(InfoActions.enter());
+  }
+
+  setCname(city: City) {
+    console.log(city)
+    this.store.dispatch(candpAnctions.choseCity({city}));
+    this.store.dispatch(InfoActions.enter());
   }
 
 
@@ -93,7 +100,10 @@ export class PrayComponent implements OnInit {
     this.cDrawerState = true;
   }
   closeCdrawer() {
-    this.cDrawerState = false;
+    
+    setTimeout(() => {
+      this.cDrawerState = false;
+    }, 100)
   }
 
   ngOnInit(): void {
@@ -107,7 +117,7 @@ export class PrayComponent implements OnInit {
         this.store.dispatch(candpAnctions.getAllProvinceCities({allCities: v, provinceCode: province.Code}))
       })
     }
-    this.store.dispatch(candpAnctions.choseCity({code: undefined}))
+    this.store.dispatch(candpAnctions.choseCity({city: undefined}))
 
     
   }

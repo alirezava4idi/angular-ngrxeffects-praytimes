@@ -24,10 +24,10 @@ export class CandPService {
 
     getAllCities() {
         const data$: Observable<any> = new Observable((s) => {
-            s.next(this.localstorage.getData('cities'))
+            s.next(this.localstorage.getData('allCities'))
         })
 
-        if (this.localstorage.getData('cities') !== null)
+        if (this.localstorage.getData('allCities') !== null)
         {
             return data$
         }else {

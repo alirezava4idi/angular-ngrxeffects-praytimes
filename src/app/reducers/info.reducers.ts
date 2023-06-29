@@ -3,8 +3,11 @@ import { Info, InfoLoadStatus } from '../models/info.models';
 import * as InfoActions from '../actions/info.actions';
 import { InfoService } from '../services/info.services';
 import { HttpClient } from '@angular/common/http';
+import { LocalService } from '../services/local.services';
 
 
+
+const localStorage = new LocalService();
 
 
 const initialState: Info = {
@@ -26,7 +29,9 @@ const initialStatus: InfoLoadStatus = {
 
 function getInfo(_state: Info, payload: any) {
     const today = payload.info.Today.split('-')[0];
-    return {...payload.info, Today: today}
+    const newState = {...payload.info, Today: today}
+    localStorage.saveData('info', JSON.stringify(newState))
+    return newState
 }
 
 

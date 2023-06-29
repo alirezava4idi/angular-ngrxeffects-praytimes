@@ -46,57 +46,50 @@
             input {
                 padding: 4px;
                 outline: none;
-
+                width: 100%;
+                padding: 5px 10px;
+                font-size: 1.2rem;
                 &:focus {
                     outline: none;
                 }
             }
 
-            .dropdown {
-                height: 200px;
-                overflow-y: auto;
-                position: absolute;
-                background-color: #fff;
-                color: black;
-                margin-right: 1px;
-
-                li {
-                    cursor: pointer;
-
-                    &:hover {
-                        
-                    background-color: #888;
-                    }
-                }
-            }
+            
         }
 
         .cdropdown {
             input {
                 padding: 4px;
                 outline: none;
+                width: 100%;
+                padding: 5px 10px;
+                font-size: 1.2rem;
 
                 &:focus {
                     outline: none;
                 }
             }
-            .dropdown {
-                height: 200px;
-                overflow-y: auto;
-                position: absolute;
-                background-color: #fff;
-                color: black;
-                margin-right: 1px;
+            
+        }
+    }
+}
+.dropdown {
+    height: 200px;
+    width: 50%;
+    overflow-y: auto;
+    position: absolute;
+    background-color: #fff;
+    color: black;
+    margin-right: 1px;
+    text-overflow: clip;
 
-                li {
-                    cursor: pointer;
-
-                    &:hover {
-                        
-                    background-color: #888;
-                    }
-                }
-            }
+    li {
+        cursor: pointer;
+        padding: 2px 8px;
+        border-bottom: 1px solid black;
+        &:hover {
+            
+            background-color: #888;
         }
     }
 }
